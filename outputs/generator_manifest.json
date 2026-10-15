@@ -1,0 +1,66 @@
+{
+  "seed": 42,
+  "start": "2005-01-03",
+  "end": "2024-12-31",
+  "trading_days": 5217,
+  "parameters": {
+    "short_alpha": 0.06,
+    "short_beta": 0.86,
+    "leverage_gamma": 0.09,
+    "persistence": 0.965,
+    "unconditional_vol_daily": 0.0064,
+    "unconditional_vol_annual": 0.1015968503448803,
+    "long_memory_phi": 0.995,
+    "long_memory_sigma": 0.035,
+    "long_memory_log_sd": 0.350438322025232,
+    "t_dof": 6.0,
+    "jump_intensity": 0.012,
+    "jump_sigma": 0.02,
+    "intraday_bars": 78,
+    "variance_risk_premium": 1.25
+  },
+  "crisis_schedule": [
+    {
+      "name": "GFC",
+      "start": "2007-06-01",
+      "end": "2009-06-30",
+      "multiplier": 20.0
+    },
+    {
+      "name": "Euro sovereign debt",
+      "start": "2011-06-01",
+      "end": "2012-01-31",
+      "multiplier": 3.0
+    },
+    {
+      "name": "China / oil selloff",
+      "start": "2015-07-01",
+      "end": "2016-02-29",
+      "multiplier": 2.0
+    },
+    {
+      "name": "Volmageddon",
+      "start": "2018-01-15",
+      "end": "2018-03-31",
+      "multiplier": 3.0
+    },
+    {
+      "name": "Q4 2018 selloff",
+      "start": "2018-10-01",
+      "end": "2019-01-31",
+      "multiplier": 2.4
+    },
+    {
+      "name": "COVID-19",
+      "start": "2019-12-01",
+      "end": "2020-07-31",
+      "multiplier": 26.0
+    },
+    {
+      "name": "2022 rate shock",
+      "start": "2021-10-01",
+      "end": "2023-03-31",
+      "multiplier": 5.0
+    }
+  ]
+}
