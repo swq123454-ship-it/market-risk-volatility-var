@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Lint
+        run: python -m ruff check src scripts tests
+
+      # The fast marker is deliberately not used to skip anything: `--fast` lowers
+      # the Monte-Carlo path count and the network's training budget, but every
+      # figure, table and method is still produced. A pipeline that only passes the
+      # unit tests is a pipeline nobody has run.
+      - name: Run tests
+        run: python -m pytest -v
+
+      - name: Run the pipeline end to end
+        run: python scripts/run_pipeline.py --fast --output artifacts
+
+      - name: Upload artefacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: outputs-py${{ matrix.python-version }}
+          path: |
+            artifacts/figures/*.png
+            artifacts/tables/*.csv
+            artifacts/metrics.json
+            artifacts/RESULTS.md
+          if-no-files-found: warn
+
+  # The README and MODEL_DOCUMENTATION are rendered from outputs/metrics.json, which is
+  # committed. This job re-renders them from *that* bundle and fails if the result differs
+  # from what is in the tree, which turns "every number in the README comes from the run"
+  # from a promise into a check. It deliberately does not run the pipeline: the claim
+  # being tested is that the committed documents agree with the committed metrics, and
+  # regenerating the metrics first would test something else.
+  #
+  # It also needs no dependencies - the renderer reads JSON with the standard library -
+  # so it stays cheap enough to run on every push.
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Re-render the documentation
+        run: python scripts/build_docs.py
+
+      - name: Fail if the committed documents have drifted from the metrics
+        run: |
+          if ! git diff --exit-code -- README.md MODEL_DOCUMENTATION.md; then
+            echo "::error::README.md or MODEL_DOCUMENTATION.md is out of date. Run 'make docs' and commit the result."
+            exit 1
+          fi

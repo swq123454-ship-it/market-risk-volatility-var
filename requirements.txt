@@ -1,0 +1,30 @@
+# Core analysis
+numpy==2.5.3
+pandas==3.0.5
+scipy==1.18.1
+
+# Volatility modelling
+lightgbm==4.7.0
+
+# Optional fast kernels. Everything in kernels.py has a pure-NumPy fallback and
+# the tests assert the two paths agree, so this is a speed package, not a
+# requirement. It is pinned anyway because an unpinned optional dependency is the
+# usual reason a "reproducible" environment stops being one.
+numba==0.68.0
+
+# Market data, used only by `--data-mode real`
+yfinance==1.7.0
+
+# Reporting
+matplotlib==3.11.1
+tabulate==0.10.0
+
+# Serving
+fastapi==0.143.2
+uvicorn[standard]==0.54.0
+joblib==1.6.0
+
+# Testing and linting
+pytest==9.1.1
+httpx==0.28.1
+ruff==0.17.1

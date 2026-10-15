@@ -1,0 +1,44 @@
+# Data and model artefacts, never committed
+data/raw/*
+data/interim/*
+data/processed/*
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
+*.parquet
+*.h5
+*.feather
+
+# Everything else under outputs/ IS committed: the figures, the tables,
+# metrics.json and RESULTS.md. The whole set is about 1.5 MB and the payoff is
+# that a reviewer can read a number in the README, follow it to RESULTS.md, open
+# the CSV behind that, and check it without cloning and running a nine-minute
+# pipeline first. A claim in a README that cannot be checked from the repository
+# is a claim, not evidence. The figures are committed for the same reason: a
+# README that embeds a broken image link has documented nothing.
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# Tooling
+.pytest_cache/
+.pytest_tmp/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
