@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "market-risk-volatility-var"
 version = "1.0.0"
 description = "Realised-volatility forecasting and VaR backtesting: a model comparison, seven VaR routes and a Basel traffic light"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 dynamic = ["dependencies"]
 
 [project.optional-dependencies]
