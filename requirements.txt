@@ -5,6 +5,11 @@ scipy==1.18.1
 
 # Volatility modelling
 lightgbm==4.7.0
+# The GBM contestant is fitted through lightgbm's sklearn wrapper, which imports
+# scikit-learn at call time; without it the model raises deep inside LightGBM
+# rather than at import, which is exactly the kind of failure a clean environment
+# catches and a shared one hides.
+scikit-learn==1.9.0
 
 # Optional fast kernels. Everything in kernels.py has a pure-NumPy fallback and
 # the tests assert the two paths agree, so this is a speed package, not a
