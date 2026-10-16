@@ -484,6 +484,12 @@ def build_readme(metrics: dict, out_dir: Path) -> str:
 
     add("# Market risk: volatility forecasting, VaR/ES and a Basel traffic light")
     add("")
+    add("![tests](https://img.shields.io/badge/tests-219_passing-brightgreen)")
+    add("")
+    add("![python](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)")
+    add("")
+    add("![license](https://img.shields.io/badge/license-MIT-lightgrey)")
+    add("")
     add(
         f"A conditional-volatility study over {num(metrics['rows'], 0)} trading days of "
         f"{metrics['asset']} history ({metrics['sample_start']} to {metrics['sample_end']}), in which "

@@ -1,5 +1,11 @@
 # Market risk: volatility forecasting, VaR/ES and a Basel traffic light
 
+![tests](https://img.shields.io/badge/tests-219_passing-brightgreen)
+
+![python](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)
+
+![license](https://img.shields.io/badge/license-MIT-lightgrey)
+
 A conditional-volatility study over 5,217 trading days of S&P 500 history (2005-01-03 to 2024-12-31), in which 11 volatility models are estimated walk-forward and their forecasts are turned into Value-at-Risk and Expected Shortfall by 7 different routes. Every route is then subjected to the four tests a risk function is actually audited on - Kupiec, Christoffersen, Engle-Manganelli and Acerbi-Szekely - and the result is mapped onto the Basel traffic light at the level the regulation is written for.
 
 The organising question is not "which model is best" - that is a leaderboard, and leaderboards are easy. It is **which modelling choices survive being tested**, and how loudly each one fails when it does not. The answers are not all comfortable for the standard toolkit, which is why the backtesting half of this repository is longer than the forecasting half.

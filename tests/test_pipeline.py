@@ -361,4 +361,8 @@ def test_the_documentation_embeds_figures_that_exist(documentation):
     docs_dir = documentation.resolve()
     for line in embedded:
         target = line.split("](", 1)[1].rstrip(")")
+        # Shields.io badges are hosted images, not repository files; everything
+        # else the document embeds must resolve to a file a clone actually has.
+        if target.startswith(("http://", "https://")):
+            continue
         assert (docs_dir / target).resolve().exists(), target
